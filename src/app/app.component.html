@@ -1,1 +1,64 @@
-Hello World
+<nav>
+  <div class="nav-wrapper">
+    <a href="#" class="brand-logo center">ONLINE LEARNING MANAGEMENT SYSTEM</a>
+  </div>
+</nav>
+<body>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+  <footer class="page-footer">
+    <div class="footer-copyright">
+      <div class="container center">
+         FINAL YEAR PROJECT
+      </div>
+    </div>
+  </footer>
+</body>
+
+<style>
+.brand-logo {
+    font-family: Lato !important;
+    font-size: 1em !important;
+    font-weight: bolder;
+    letter-spacing: 0.3em;
+    word-spacing: 0.3em;
+}
+
+.nav-wrapper {
+    background-color: #283593 !important;
+}
+
+
+footer.page-footer {
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+}
+
+.page-footer {
+    font-family: Lato !important;
+    font-size: 1em !important;
+    font-weight: bolder;
+    letter-spacing: 0.3em;
+    word-spacing: 0.3em;
+    color: #fff;
+    background-color: #ee6e73;
+}
+footer {
+    text-align: center;
+    background-color: #1A237E !important;
+    bottom: 0px;
+    width: 100%;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+</style>

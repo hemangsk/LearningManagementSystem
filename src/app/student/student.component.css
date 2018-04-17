@@ -1,0 +1,100 @@
+.student-detail {
+    font-family: lato;
+  }
+
+  .enrollment-no {
+    text-align:  center;
+    font-size: 2em;
+    font-weight:  300;
+    margin-top: 0.5em;
+    color:  grey;
+
+  }
+
+  .name {
+
+    text-align:  center;
+    font-size: 1.5em;
+    font-weight:  300;
+    margin-top: 0.5em;
+
+  }
+
+
+  .small-heading {
+    color: grey;
+  }
+
+  .small-heading-data {
+    font-family: lato;
+    font-size: 1.2em;
+    font-weight: 500;
+  }
+
+  .parent-wrapper {
+    height:100%;
+    width:100%;
+  }
+  .parent {
+    display: flex;
+    flex-wrap:wrap;
+    margin:-10px 0 0 -10px;
+  }
+  .child {
+    display: inline-block;
+    margin:10px 0 0 10px;
+    flex-grow: 1;
+    height:100px;    
+    width: calc(100% * (1/4) - 10px - 1px)
+  }
+
+  .subject-card {
+    padding: 12px;
+    min-height: 5em;
+    text-align: center;
+    margin: 0.5em;
+    line-height: 3em;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.0), 0 1px 1px 0 rgba(0, 0, 0, 0.0), 0 1px 1px 0px rgba(0, 0, 0, 0.05);
+    margin-bottom: 0 !important;
+  }
+
+  .subject-data {
+    background-color: #f3f5f8;
+  }
+  .tab {
+    font-family: lato;
+    letter-spacing: 0.1em;
+  }
+  .as-card {
+    min-height: 2em;
+    margin: 0.5em;
+    line-height: 2em;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.0), 0 1px 1px 0 rgba(0, 0, 0, 0.0), 0 1px 1px 0px rgba(0, 0, 0, 0.05);
+    margin-bottom: 0 !important;
+  }
+
+  .sm-card {
+    min-height: 3em;
+    margin: 0.5em;
+    line-height: 2em;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.0), 0 1px 1px 0 rgba(0, 0, 0, 0.0), 0 1px 1px 0px rgba(0, 0, 0, 0.05);
+    margin-bottom: 0 !important;
+  }
+
+  .no-margins {
+    margin: 0 !important;
+  }
+
+  .as-card  .col{
+    padding: 12px;
+  }
+
+  iframe {
+    width: 100%;
+    min-height: 40em;
+  }
+
+  #modal2 {
+    min-height: 40em;
+  }
+  

@@ -1,0 +1,172 @@
+<div class="" *ngIf="student != {}">
+  <div class="right">
+    <a class="btn waves-effect white black-text center" [routerLink]="['/']" style="margin-right: 1em;">
+      <i class="fa fa-sign-out-alt"></i> &nbsp; &nbsp; LOGOUT
+    </a>
+  </div>
+  <div class="container">
+    <div class="student-details">
+      <div class="row">
+          <div class="enrollment-no">{{ student.enrollment_no }}</div>
+          <div class="name">{{ student.name }}</div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col m3">
+          <div class="small-heading">Course</div>
+          <div class="small-heading-data">{{ student.course }}</div>
+        </div>
+        <div class="col m3">
+          <div class="small-heading"> Stream</div>
+          <div class="small-heading-data">{{ student.stream }}</div>
+        </div>
+        <div class="col m3">
+          <div class="small-heading"> Year of Admission</div>
+          <div class="small-heading-data">{{ student.year_of_admission }}</div>
+        </div>
+        <div class="col m3">
+          <div class="small-heading">Email</div>
+          <div class="small-heading-data">{{ student.email }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="subject-data">
+    <div class="parent-wrapper">
+      <div class="parent">
+        <div class="child" *ngFor="let subject of subjects">
+          <div class="subject-card card" (click)="selectSubject(subject)">
+            {{ subject.subject_name }} {{ subject.subject_code }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+
+
+
+<div class="row" *ngIf="selectedSubject" style="background: #f8f3f5">
+  <div>
+    <ul class="tabs">
+      <li class="tab col s6"><a href="#test1" disabled>ASSIGNMENTS</a></li>
+      <li class="tab col s6"><a href="#test2" disabled>SUBMISSIONS</a></li>
+
+    </ul>
+    <br> 
+  </div>
+  <div id="test1" class="col s12">
+    <div class="as-card card" *ngFor="let assignment of assignments; let i = index;" (click)="submitAssignment(assignment);">
+      <div class="row no-margins">
+        <div class="col m1 indigo lighten-5 black-text center">
+            {{ i + 1 }}
+        </div>
+        <div class="col m10">
+          {{ assignment.title }}
+        </div>
+      </div>
+    </div>
+    <br>
+  </div>
+  <div id="test2" class="col s12"> 
+
+      <div *ngIf=" !(submissions && submissions.length > 0)" class="center">
+        <div class="black-text">No Submissions Yet!</div>
+        <br>
+      </div>
+      <div *ngIf="submissions && submissions.length > 0">
+          <div class="as-card card" *ngFor="let submission of submissions; let i = index;">
+            <div class="row no-margins">
+              <div class="col m1 indigo lighten-5 black-text center">
+                  {{ i + 1 }}
+              </div>
+              <div class="col m9">
+                {{ submission.assignment.title }}
+              </div>
+
+              <div class="col m2 center" style="padding: 6px;">
+                <div class="row no-margins">
+                  <a class="btn-flat waves-effect white black-text" (click)="editSubmission(submission)">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                 
+                  <a class="btn-flat waves-effect white black-text" (click)="viewSubmissions(submission)">
+                    <i class="fa fa-eye"></i>
+                  </a>
+
+                  <a class="btn-flat waves-effect white black-text" (click)="deleteSubmission(submission)">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </div>
+                  
+              </div>
+            </div>
+    
+      
+          </div>
+          <br>
+        </div>  
+  
+  </div>
+</div>
+
+<div id="modal2" class="modal" *ngIf="viewData">
+  <iframe *ngIf="viewData" [src]="sanitizer.bypassSecurityTrustResourceUrl(viewData)"></iframe>
+</div>
+
+<div id="modal1" class="modal" *ngIf="selectedAssignment">
+  <div class="row no-margins indigo darken-5 white-text as-card">
+    <div class="col m10">
+      {{ selectedAssignment.title }}
+    </div>
+
+    <div class="col m2 ">
+        <a (click)="close()" class="waves-effect btn-flat white-text transparent"><i class="fas fa-times-circle" style="font-size: 1.3em;"></i></a>
+    </div>
+  </div>
+
+  <div class="container description">
+    <p>{{ selectedAssignment.description }}</p>
+  </div>
+
+  <div class="instruction container">
+    <div class="row center">
+        <div class="upload-info">UPLOAD YOUR SUBMISSION</div>
+    </div>
+
+    <div class="input-field">
+      <textarea id="textarea1" class="materialize-textarea" [(ngModel)]="selectedAssignment.notes"></textarea>
+      <label for="textarea1">Submission Notes</label>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="file-field input-field">
+        <div class="btn white black-text">
+          <span>File</span>
+          <input type="file" id="file">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text">
+        </div>
+      </div>
+    </div>
+
+    <div class="row center">
+      <a class="btn waves-effect white black-text"(click)="upload()">UPLOAD</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .upload-info {
+    letter-spacing: 0.1em;
+    margin-top: 1em;
+    padding-top: 1em;
+  }
+</style>

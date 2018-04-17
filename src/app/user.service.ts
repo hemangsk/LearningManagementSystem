@@ -9,7 +9,7 @@ export class UserService {
 
   loginUrl = environment.backend + '/login';
   dashboardUrl = environment.backend + '/dashboard';
-
+  
   constructor(private http: HttpClient, private authHttp: AuthHttp) { }
 
   login(req) {
@@ -19,8 +19,10 @@ export class UserService {
     });
   }
 
-  dashboard(req) {
-    return this.authHttp.post(this.dashboardUrl, req);
+  dashboard(req) : Promise<any> {
+    return this.authHttp.post(this.dashboardUrl, req).toPromise().then(data => {
+      return data;
+    });
   }
 
   testEndPoint() {

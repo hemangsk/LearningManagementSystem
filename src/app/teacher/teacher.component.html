@@ -1,0 +1,226 @@
+<div class="" *ngIf="teacher && teacher != {}">
+    <div class="right">
+      <a class="btn waves-effect white black-text center" [routerLink]="['/']" style="margin-right: 1em;">
+        <i class="fa fa-sign-out-alt"></i> &nbsp; &nbsp; LOGOUT
+      </a>
+    </div>
+    <div class="container">
+      <div class="student-details">
+        <div class="row">
+            <div class="enrollment-no">{{ teacher.instructor_id }}</div>
+            <div class="name">{{ teacher.name }}</div>
+        </div>
+
+        
+
+        <br>
+        <div class="row">
+          <div class="col m3">
+            <div class="small-heading">Designation</div>
+            <div class="small-heading-data">{{ teacher.designation }}</div>
+          </div>
+          <div class="col m3">
+            <div class="small-heading">Room</div>
+            <div class="small-heading-data">{{ teacher.room }}</div>
+          </div>
+          <div class="col m3">
+            <div class="small-heading"> Data of Joining</div>
+            <div class="small-heading-data">{{ teacher.date_of_joining }}</div>
+          </div>
+          <div class="col m3">
+            <div class="small-heading">Email</div>
+            <div class="small-heading-data">{{ teacher.email }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="subject-data">
+      <div class="parent-wrapper">
+        <div class="parent">
+          <div class="child" *ngFor="let subject of subjects">
+            <div class="subject-card card" (click)="selectSubject(subject)" >
+              {{ subject.subject_name }} {{ subject.subject_code }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br>
+    </div>
+  </div>
+  
+  <div class="row" *ngIf="selectedSubject" style="background: #f8f3f5">
+
+    <div class="col m6">
+      <div class="upload-info center">ASSIGNMENTS</div>
+      <br>
+      <div class="center">
+          <a class="btn-flat waves-effect white black-text center" (click)="createAssignment()">
+              <i class="fa fa-plus"></i> &nbsp; &nbsp; CREATE NEW
+           </a>
+      </div>
+      <br>
+      
+      <div class="as-card card" *ngFor="let assignment of assignments; let i = index;">
+          <div class="row no-margins">
+            <div class="col m1 indigo lighten-5 black-text center">
+                {{ i + 1 }}
+            </div>
+            <div class="col m8">
+              {{ assignment.title }}
+            </div>
+
+            <div class="col m3 center" style="padding: 6px;">
+              <div class="row no-margins">
+                <a class="btn-flat waves-effect white black-text" (click)="editAssignment(assignment)">
+                  <i class="fa fa-edit"></i>
+                </a>
+                
+                <a class="btn-flat waves-effect white black-text" (click)="fetchSubmissions(assignment)">
+                  <i class="fa fa-eye"></i>
+                </a>
+
+                <a class="btn-flat waves-effect white black-text" (click)="deleteAssignment(assignment)">
+                  <i class="fa fa-trash"></i>
+                </a>
+              </div>
+                
+            </div>
+
+          </div>
+        </div>
+        <br>
+    </div>
+    
+    <div class="col s6" *ngIf=" (submissions && submissions.length > 0)">
+      <div  class="upload-info center">SUBMISSIONS</div>
+
+      
+      <div >
+        <div class="as-card card" *ngFor="let submission of submissions; let i = index;">
+          <div class="row no-margins">
+            <div class="col m1 indigo lighten-5 black-text center">
+                {{ i + 1 }}
+            </div>
+            <div class="col m8">
+              {{ submission.enrollment_no }}
+            </div>
+
+            <div class="col m3 center" style="padding: 6px;">
+
+              <div class="row no-margins">
+
+                  <a class="btn-flat waves-effect white black-text" *ngIf="submission.evaluation && submission.evaluation.length > 0">
+                      <i class="fa fa-check green-text"></i>
+                    </a>
+
+
+                <a class="btn-flat waves-effect white black-text" (click)="editSubmission(submission)">
+                  <i class="fa fa-edit"></i>
+                </a>
+                
+                <a class="btn-flat waves-effect white black-text" (click)="viewSubmission(submission)">
+                  <i class="fa fa-eye"></i>
+                </a>
+
+                
+              </div>
+                
+            </div>
+          </div>
+    
+      
+        </div>
+        <br>
+      </div>  
+
+    </div>
+    <div>
+
+    
+      
+  </div>
+  
+  <div id="modal2" class="modal" *ngIf="viewData">
+    <iframe *ngIf="viewData" [src]="sanitizer.bypassSecurityTrustResourceUrl(viewData)"></iframe>
+  </div>
+  
+  <div id="modal1" class="modal" *ngIf="selectedAssignment">
+      <div class="row no-margins indigo darken-5 white-text as-card">
+        <div class="col m10">
+          POST ASSIGNMENT
+        </div>
+    
+        <div class="col m2 ">
+            <a (click)="close()" class="waves-effect btn-flat white-text transparent"><i class="fas fa-times-circle" style="font-size: 1.3em;"></i></a>
+        </div>
+      </div>
+      <br><br>
+      <div class="container">
+        <div class="input-field col s12">
+          <input id="title" type="text" class="validate" [(ngModel)]="selectedAssignment.title">
+          <label for="title">Title</label>
+        </div>
+      </div>
+      <div class="container">
+        <div class="input-field col s12">
+          <input id="title" type="text" class="validate" [(ngModel)]="selectedAssignment.description">
+          <label for="description">Description</label>
+        </div>
+      </div>
+      <br><br>
+      <div class="container center">
+        <a class="btn waves-effect white black-text"(click)="submitAssignment()">POST</a>
+      </div>
+      <br><br>
+    </div>
+    <br><br>
+  </div>
+
+
+  <div id="modal3" class="modal" *ngIf="selectedSubmission">
+      <div class="row no-margins indigo darken-5 white-text as-card">
+        <div class="col m10">
+            {{ selectedSubmission.enrollment_no }}
+
+        </div>
+    
+        <div class="col m2 ">
+            <a (click)="close()" class="waves-effect btn-flat white-text transparent"><i class="fas fa-times-circle" style="font-size: 1.3em;"></i></a>
+        </div>
+      </div>
+      <br><br>
+      <div class="container">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="title" type="text" class="validate" [(ngModel)]="selectedSubmission.notes">
+            <label for="title">Notes</label>
+          </div>
+        </div>
+
+        <div class="row center">
+            <div class="upload-info">EVALUATE SUBMISSION</div>
+            <div class="input-field col s12">
+                <input id="title" type="text" class="validate" [(ngModel)]="selectedSubmission.evaluation">
+              </div>
+            
+        </div>
+      </div>
+  
+      <div class="container center">
+        <a class="btn waves-effect white black-text"(click)="evaluateSubmission()">SAVE EVALULATION</a>
+      </div>
+      
+     
+      <br><br>
+    </div>
+    <br><br>
+  
+  <style>
+    .upload-info {
+      letter-spacing: 0.1em;
+      margin-top: 1em;
+      padding-top: 1em;
+    }
+  </style>
